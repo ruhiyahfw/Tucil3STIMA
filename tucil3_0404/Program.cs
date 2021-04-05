@@ -5,9 +5,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-
 namespace tucil3_0404
 {
+    public static class Global
+    {
+        public static int JmlSimpul(string path)
+        {
+            string[] lines = System.IO.File.ReadAllLines(@path);
+            //baca jumlah simpul
+            string baris = lines[0];
+            return Convert.ToInt32(baris);
+        }
+
+        public static Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
+        public static Microsoft.Msagl.Drawing.Graph graph;
+        public static List<string> nodes;
+        public static graf g;
+    }
     static class Program
     {
         /// <summary>
@@ -15,13 +29,7 @@ namespace tucil3_0404
         /// </summary>
         [STAThread]
 
-        static int JmlSimpul(string path)
-        {
-            string[] lines = System.IO.File.ReadAllLines(@path);
-            //baca jumlah simpul
-            string baris = lines[0];
-            return  Convert.ToInt32(baris);
-        }
+        
 
         static void Main()
         {
@@ -30,8 +38,6 @@ namespace tucil3_0404
             Application.Run(new Form1());
         }
     }
-
-    
 
     public class coordinate
     {
@@ -126,7 +132,7 @@ namespace tucil3_0404
                 }
                 this.simpul.Add(new KeyValuePair<string, coordinate>(read3, c));
             }
-            // membaca adjacency matrix
+            //membaca adjacency matrix
             for (int k = 0; k < this.JumlahSimpul; k++)
             {
                 j = 0;
@@ -147,11 +153,25 @@ namespace tucil3_0404
             }
         }
 
-        //public void addEdge(int u, int v)
-        //{
-        //    this._adj[u].AddLast(v);
-        //    this._adj[v].AddLast(u);
-        //}
+        public void AddMSAGL(Microsoft.Msagl.Drawing.Graph graph, List<string> node)
+        {
+            for (int i = 0; i < this.JumlahSimpul; i++)
+            {
+                string a = this.simpul[i].Key;
+                node.Add(a);
+                for (int j = 0; j < i; j++)
+                {
+                    string b = this.simpul[j].Key;
+                    if (this.adjmat[i,j] != 0)
+                    {
+                        var Edge = graph.AddEdge(a, b);
+                        Edge.Attr.Color = Microsoft.Msagl.Drawing.Color.DarkBlue;
+                        Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                    }
+                }
+            }
+        }
 
         public List<KeyValuePair<string, coordinate>> getAllSimpul()
         {
@@ -238,6 +258,11 @@ namespace tucil3_0404
 
     public class astarsearch
     {
+        private int dummy;
+        public astarsearch()
+        {
+            dummy = 0;
+        }
         public (List<string>, double, double) getMinfromQueue(List<(List<string>, double, double)> queue)
         {
             (List<string>, double, double) result = (new List<string>(), 999999999, 0);
@@ -341,13 +366,17 @@ namespace tucil3_0404
             return hasil;
         }
 
-        public void getPathAstar(string asal, string tujuan, graf g)
+        public void getPathAstar(string asal, string tujuan, graf g, Microsoft.Msagl.Drawing.Graph graph)
         {
             List<string> hasil = new List<string>();
             try
             {
                 hasil = astar(asal, tujuan, g);
-                // salin lagi hasilnya ke msagl
+                foreach (string nama in hasil)
+                {
+                    graph.FindNode(nama).Attr.Color = Microsoft.Msagl.Drawing.Color.Coral;
+                    graph.FindNode(nama).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Coral;
+                }
             }
             catch (Exception)
             {

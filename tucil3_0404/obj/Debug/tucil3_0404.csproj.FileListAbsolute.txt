@@ -38,3 +38,8 @@ C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\obj\Debug\tucil3_0404.cs
 C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\obj\Debug\tucil3_0404.csproj.CoreCompileInputs.cache
 C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\obj\Debug\tucil3_0404.exe
 C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\obj\Debug\tucil3_0404.pdb
+C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\bin\Debug\AutomaticGraphLayout.dll
+C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\bin\Debug\AutomaticGraphLayout.Drawing.dll
+C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\bin\Debug\Microsoft.Msagl.GraphViewerGdi.dll
+C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\bin\Debug\Microsoft.Msagl.WpfGraphControl.dll
+C:\Users\farad\Source\Repos\Tucil3STIMA0504\tucil3_0404\obj\Debug\tucil3_0404.csproj.CopyComplete

@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace tucil3_0404
 {
     public partial class Form1 : Form
     {
         string simpulasal, simpultujuan, mapterpilih;
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -37,11 +38,35 @@ namespace tucil3_0404
             asal.Show();
             tujuan.Show();
             //masukin isi combobox dari asal dan tujuan
+
+            // buat graf
+            string path = "C:/Users/farad/source/repos/BuramSTIMA3/BuramSTIMA3/map5.txt";
+            int N = Global.JmlSimpul(path);
+            Global.g = new graf(N);
+
+            // buat graf MSAGL
+            Global.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            Global.graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            Global.nodes = new List<string>();
+
+            //baca txt dan tambahkan ke msagl
+            Global.g.CreateGraf(path);
+            Global.g.AddMSAGL(Global.graph, Global.nodes);
+            foreach (string node in Global.nodes)
+            {
+                Global.graph.FindNode(node).Attr.Color = Microsoft.Msagl.Drawing.Color.CadetBlue;
+                Global.graph.FindNode(node).Attr.FillColor = Microsoft.Msagl.Drawing.Color.CadetBlue;
+            }
+            Global.viewer.Graph = Global.graph;
+            Global.viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Controls.Add(Global.viewer);
         }
 
         private void search_Click(object sender, EventArgs e)
         {
-            //panggil fungsi astar
+            //////panggil fungsi astar
+            //astarsearch as = new astarsearch();
+            //as.getPathAstar("Arad", "Bucharest", g, Global.graph);
         }
 
         private void daftarMap_SelectedIndexChanged(object sender, EventArgs e)
