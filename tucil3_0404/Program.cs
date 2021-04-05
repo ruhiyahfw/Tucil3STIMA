@@ -186,17 +186,63 @@ namespace tucil3_0404
             return null;
         }
 
+        private int getIndeksSiapa(string siapa)
+        {
+            int i = 0;
+            foreach (var a in this.simpul)
+            {
+                if (a.Key == siapa)
+                {
+                    return i;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return -1;
+        }
 
+        private string getNamadiSimpulkeIdx(int idx)
+        {
+            int i = 0;
+            foreach (var a in this.simpul)
+            {
+                if (i == idx)
+                {
+                    return a.Key;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return null;
+        }
+        public List<string> getTetangga (string awal)
+        {
+            // mengembalikan daftar tetangga si-awal
+            List<string> hasil = new List<string>();
+            int idx = this.getIndeksSiapa(awal);
+            for (int j = 0; j < this.JumlahSimpul; j++)
+            {
+                if (this.adjmat[idx,j] > 0)
+                {
+                    hasil.Add(getNamadiSimpulkeIdx(j));
+                }
+            }
+            return hasil;
+        }
     }
 
     public class astarsearch
     {
-        public KeyValuePair<int, coordinate> getMinfromQueue(List<KeyValuePair<int, coordinate>> queue)
+        public KeyValuePair<List<string>, int> getMinfromQueue(List<KeyValuePair<List<string>, int>> queue)
         {
-            KeyValuePair<int, coordinate> result = new KeyValuePair<int, coordinate>(99999999, new coordinate());
+            KeyValuePair<List<string>, int> result = new KeyValuePair<List<string>, int>(new List<string>(), 999999999);
             foreach(var a in queue)
             {
-                if(a.Key < result.Key)
+                if(a.Value < result.Value)
                 {
                     result = a;
                 }
@@ -214,22 +260,27 @@ namespace tucil3_0404
         {
             //cari koordinat dari simpul asal
             coordinate coorAsal = g.getCoordinate(asal);
-            //cari koordinat dari
+            //cari koordinat dari simpul tujuan
             coordinate coorTujuan = g.getCoordinate(tujuan);
 
             //untuk menyimpan hasil
-            List<KeyValuePair<string, coordinate>> hasil = new List<KeyValuePair<string, coordinate>>();
+            List<string> hasil = new List<string>();
 
-            //untuk menyimpan nilai heuristik dan coordinat simpul
-            List<KeyValuePair<int, coordinate>> queue = new List<KeyValuePair<int, coordinate>>();
-            HashSet<coordinate> visited = new HashSet<coordinate>();
+            //untuk menyimpan nilai heuristik dan list simpul
+            List<KeyValuePair<List<string>, int>> queue = new List<KeyValuePair<List<string>, int>> ();
+            //HashSet<coordinate> visited = new HashSet<coordinate>();
             //HashMap<coordinate, coordinate> parent = new HashMap<coordinate, coordinate>();
 
             int JarakNow = 0; //g(n)
             //dicari semua simpul yang bertetangga dengan simpul asal
+            List<string> tetangga = new List<string>();
+
             //lalu dicari nilai heuristik untuk tiap simpulnya
+
             //masukin ke dalam queue
+
             //dari queue dicari nilai heuristik yang paling kecil
+
             //pilih simpul itu lalu keluarkan dari queue
 
 
