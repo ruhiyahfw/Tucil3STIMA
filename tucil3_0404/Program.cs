@@ -70,7 +70,7 @@ namespace tucil3_0404
     public class graf
     {
         private int JumlahSimpul;
-        private List<KeyValuePair<string, coordinate>> simpul;
+        private List<KeyValuePair<string, coordinate>> simpul; //asumsinama tempat/jalan pasti berbeda
         private double[,] adjmat;
 
         //public graf()
@@ -219,16 +219,17 @@ namespace tucil3_0404
             }
             return null;
         }
-        public List<string> getTetangga (string awal)
+        public List<(string,double)> getTetangga (string awal)
         {
             // mengembalikan daftar tetangga si-awal
-            List<string> hasil = new List<string>();
+            List<(string,double)> hasil = new List<(string,double)>();
             int idx = this.getIndeksSiapa(awal);
             for (int j = 0; j < this.JumlahSimpul; j++)
             {
                 if (this.adjmat[idx,j] > 0)
                 {
-                    hasil.Add(getNamadiSimpulkeIdx(j));
+                    (string,  double) a = (getNamadiSimpulkeIdx(j), this.adjmat[idx,  j]);
+                    hasil.Add(a);
                 }
             }
             return hasil;
@@ -237,12 +238,12 @@ namespace tucil3_0404
 
     public class astarsearch
     {
-        public KeyValuePair<List<string>, int> getMinfromQueue(List<KeyValuePair<List<string>, int>> queue)
+        public (List<string>, double, double) getMinfromQueue(List<(List<string>, double, double)> queue)
         {
-            KeyValuePair<List<string>, int> result = new KeyValuePair<List<string>, int>(new List<string>(), 999999999);
+            (List<string>, double, double) result = (new List<string>(), 999999999, 0);
             foreach(var a in queue)
             {
-                if(a.Value < result.Value)
+                if(a.Item2 < result.Item2)
                 {
                     result = a;
                 }
@@ -250,41 +251,108 @@ namespace tucil3_0404
             return result;
         }
 
-        public double HeuristicDistance(coordinate a, coordinate b)
+        public double HeuristicDistance(coordinate a, coordinate b) //h(n)
         {
             double result = Math.Sqrt(Math.Pow((a.getLat() - b.getLat()), 2) + Math.Pow((a.getLong() - b.getLong()), 2));
             return result;
         }
 
-        public void astar(string asal, string tujuan, graf g)
+        //tetangga itu tetangga dari simpul yang paling ujung dari list string dicari
+        //jaraknow itu jarak dari root ke simpul yang paling ujung dari list string dicari (cost dari rute dicari)
+        //list string dicari itu rute dari root ke simpul n
+        public void addQueue(graf g, List<string> dicari, List<(string, double)> tetangga, List<(List<string>, double, double)> queue, double JarakNow)
         {
-            //cari koordinat dari simpul asal
-            coordinate coorAsal = g.getCoordinate(asal);
-            //cari koordinat dari simpul tujuan
-            coordinate coorTujuan = g.getCoordinate(tujuan);
+            
+            foreach (var node in tetangga)
+            {
+                double realJarak = JarakNow; //realjarak itu dari root ke node n
+                coordinate coorDicari = g.getCoordinate(dicari[dicari.Count - 1]);
+                realJarak = realJarak + node.Item2; //diambil dari adj matrix
+                double heuristik = HeuristicDistance(coorDicari, g.getCoordinate(node.Item1));
+                double functionheuritik = realJarak + heuristik;
+                List<string> nama = new List<string>();
+                nama = dicari;
+                nama.Add(node.Item1);
+                (List<string>, double, double) masukkan = (nama, functionheuritik, realJarak);
+                //masukin ke dalam queue
+                queue.Add(masukkan);
+            }
+        }
+
+
+
+        public List<string> astar(string asal, string tujuan, graf g)
+        {
+            ////cari koordinat dari simpul asal
+            //coordinate coorAsal = g.getCoordinate(asal);
+            ////cari koordinat dari simpul tujuan
+            //coordinate coorTujuan = g.getCoordinate(tujuan);
 
             //untuk menyimpan hasil
             List<string> hasil = new List<string>();
 
             //untuk menyimpan nilai heuristik dan list simpul
-            List<KeyValuePair<List<string>, int>> queue = new List<KeyValuePair<List<string>, int>> ();
-            //HashSet<coordinate> visited = new HashSet<coordinate>();
-            //HashMap<coordinate, coordinate> parent = new HashMap<coordinate, coordinate>();
+            List<(List<string>, double, double)> queue = new List<(List<string>, double, double)>();
 
-            int JarakNow = 0; //g(n)
+            double JarakNow = 0; //g(n)
             //dicari semua simpul yang bertetangga dengan simpul asal
-            List<string> tetangga = new List<string>();
+            List<(string,double)> tetangga = g.getTetangga(asal);
 
-            //lalu dicari nilai heuristik untuk tiap simpulnya
-
-            //masukin ke dalam queue
-
-            //dari queue dicari nilai heuristik yang paling kecil
-
-            //pilih simpul itu lalu keluarkan dari queue
+            //lalu dicari nilai heuristik untuk tiap simpulnya dan ditambahkan ke queue
+            List<string> awal = new List<string>();
+            awal.Add(asal);
+            addQueue(g, awal, tetangga, queue, JarakNow);
 
 
+            bool found = false;
+            while (queue.Count != 0 && !found)
+            {
+                //dari queue dicari nilai heuristik yang paling kecil
+                (List<string>, double, double) iter = getMinfromQueue(queue);
+                JarakNow = iter.Item3; 
 
+                //pilih simpul itu lalu keluarkan dari queue
+                queue.Remove(iter);
+
+                //dapetin simpul yang terakhir dari list string di iter
+                string ujung = iter.Item1[iter.Item1.Count - 1];
+
+                //cek apakah simpul ujung merupakan simpul goal
+                if(Equals(ujung, tujuan))
+                {
+                    hasil = iter.Item1;
+                    found = true;
+                } else
+                {
+                    //cari tetangganya dari simpul ujung
+                    tetangga = g.getTetangga(ujung);
+
+                    //tambah queue
+                    addQueue(g, iter.Item1, tetangga, queue, JarakNow);
+                }
+            }
+
+            //kalo sudah ditemukan jarak dari asal ke tujuan yang paling minimum
+            if(!found)
+            {
+                throw new Exception();
+            }
+
+            return hasil;
+        }
+
+        public void getPathAstar(string asal, string tujuan, graf g)
+        {
+            List<string> hasil = new List<string>();
+            try
+            {
+                hasil = astar(asal, tujuan, g);
+                // salin lagi hasilnya ke msagl
+            }
+            catch (Exception)
+            {
+               // cetak ke layar tidak ditemukan
+            }
         }
     }
 }
