@@ -64,9 +64,9 @@ namespace tucil3_0404
     public class graf
     {
         private int JumlahSimpul;
-        private List<KeyValuePair<coordinate,string>> simpul;
-        private double[,] adjmat;        
-        
+        private List<KeyValuePair<string, coordinate>> simpul;
+        private double[,] adjmat;
+
         //public graf()
         //{
         //    this.JumlahSimpul = ;
@@ -77,7 +77,7 @@ namespace tucil3_0404
         public graf(int N)
         {
             this.JumlahSimpul = N;
-            this.simpul = new List<KeyValuePair<coordinate, string>>();
+            this.simpul = new List<KeyValuePair<string, coordinate>>();
             this.adjmat = new double[this.JumlahSimpul, this.JumlahSimpul];
         }
 
@@ -86,18 +86,21 @@ namespace tucil3_0404
 
             string[] lines = System.IO.File.ReadAllLines(@path);
             //baca koordinat dan nama setiap simpul
-            string read1 = "";
-            string read2 = "";
-            string read3 = "";
-            for (int i = 1; i <= this.JumlahSimpul; i++)
+            int i, j;
+            double lo, la;
+            for (i = 1; i <= this.JumlahSimpul; i++)
             {
-                int j = 0;
+                string read1 = "";
+                string read2 = "";
+                string read3 = "";
+                j = 0;
                 // baca longitude
                 while (lines[i][j] != ' ')
                 {
                     read1 = read1 + lines[i][j];
                     j++;
                 }
+                lo = Convert.ToDouble(read1);
                 // baca latitude
                 j++;
                 while (lines[i][j] != ' ')
@@ -105,7 +108,9 @@ namespace tucil3_0404
                     read2 = read2 + lines[i][j];
                     j++;
                 }
-                coordinate c = new coordinate(Convert.ToDouble(read1), Convert.ToDouble(read2));
+
+                la = Convert.ToDouble(read2);
+                coordinate c = new coordinate(lo, la);
                 // baca nama node
                 j++;
                 while (j < lines[i].Length)
@@ -113,15 +118,31 @@ namespace tucil3_0404
                     read3 = read3 + lines[i][j];
                     j++;
                 }
-                this.simpul.Add(new KeyValuePair<coordinate, string>(c, read3));
-                
+                this.simpul.Add(new KeyValuePair<string, coordinate>(read3, c));
             }
+            // membaca adjacency matrix
+            for (int k = 0; k < this.JumlahSimpul; k++)
+            {
+                j = 0;
+                for (int l = 0; l < this.JumlahSimpul; l++)
+                {
+                    string read1 = "";
+                    while (j < lines[i].Length && lines[i][j] != ' ')
+                    {
+                        read1 += lines[i][j];
+                        j++;
+                    }
+                    double a = Convert.ToDouble(read1);
 
-
+                    this.adjmat[k, l] = a;
+                    j++;
+                }
+                i++;
+            }
         }
 
 
-            
-        
+
+
     }
 }
