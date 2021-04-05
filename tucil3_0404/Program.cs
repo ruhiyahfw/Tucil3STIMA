@@ -113,7 +113,7 @@ namespace tucil3_0404
                     read3 = read3 + lines[i][j];
                     j++;
                 }
-                this.simpul.Add(c, read3);
+                this.simpul.Add(new KeyValuePair<coordinate, string>(c, read3));
                 
             }
 

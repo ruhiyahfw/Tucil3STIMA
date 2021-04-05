@@ -1,0 +1,10 @@
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\obj\Debug\tucil3_0404.csprojAssemblyReference.cache
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\obj\Debug\tucil3_0404.Form1.resources
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\obj\Debug\tucil3_0404.Properties.Resources.resources
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\obj\Debug\tucil3_0404.csproj.GenerateResource.cache
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\obj\Debug\tucil3_0404.csproj.CoreCompileInputs.cache
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\bin\Debug\tucil3_0404.exe.config
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\bin\Debug\tucil3_0404.exe
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\bin\Debug\tucil3_0404.pdb
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\obj\Debug\tucil3_0404.exe
+D:\KULIAH\Stima\Tucil3STIMA\tucil3_0404\obj\Debug\tucil3_0404.pdb
