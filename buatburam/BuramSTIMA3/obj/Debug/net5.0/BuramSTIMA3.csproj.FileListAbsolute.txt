@@ -1,0 +1,16 @@
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\bin\Debug\net5.0\BuramSTIMA3.exe
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\bin\Debug\net5.0\BuramSTIMA3.deps.json
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\bin\Debug\net5.0\BuramSTIMA3.runtimeconfig.json
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\bin\Debug\net5.0\BuramSTIMA3.runtimeconfig.dev.json
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\bin\Debug\net5.0\BuramSTIMA3.dll
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\bin\Debug\net5.0\ref\BuramSTIMA3.dll
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\bin\Debug\net5.0\BuramSTIMA3.pdb
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.csprojAssemblyReference.cache
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.AssemblyInfoInputs.cache
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.AssemblyInfo.cs
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.csproj.CoreCompileInputs.cache
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.dll
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\ref\BuramSTIMA3.dll
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.pdb
+C:\Users\farad\source\repos\BuramSTIMA3\BuramSTIMA3\obj\Debug\net5.0\BuramSTIMA3.genruntimeconfig.cache

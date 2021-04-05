@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuramSTIMA3", "BuramSTIMA3\BuramSTIMA3.csproj", "{5292BD50-7B51-49F4-B399-05BD7729684F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5292BD50-7B51-49F4-B399-05BD7729684F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5292BD50-7B51-49F4-B399-05BD7729684F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5292BD50-7B51-49F4-B399-05BD7729684F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5292BD50-7B51-49F4-B399-05BD7729684F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FDDA79F-1519-4472-8BB3-711C1B47F59A}
+	EndGlobalSection
+EndGlobal
