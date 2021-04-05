@@ -21,10 +21,21 @@ namespace tucil3_0404
             daftarMap.Items.Add("Peta jalan sekitar Alun-alun Bandung");
             daftarMap.Items.Add("Peta jalan sekitar Buahbatu");
             daftarMap.Items.Add("Peta jalan sekitar kawasan rumah");
+            label3.Hide();
+            label4.Hide();
+            search.Hide();
+            asal.Hide();
+            tujuan.Hide();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            label3.Show();
+            label4.Show();
+            search.Show();
+            asal.Show();
+            tujuan.Show();
             //masukin isi combobox dari asal dan tujuan
         }
 

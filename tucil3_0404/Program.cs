@@ -38,6 +38,12 @@ namespace tucil3_0404
         private double longitude;
         private double latitude;
 
+        public coordinate()
+        {
+            this.longitude = 0;
+            this.latitude = 0;
+        }
+
         public coordinate(double lo, double la)
         {
             this.longitude = lo;
@@ -141,8 +147,93 @@ namespace tucil3_0404
             }
         }
 
+        //public void addEdge(int u, int v)
+        //{
+        //    this._adj[u].AddLast(v);
+        //    this._adj[v].AddLast(u);
+        //}
+
+        public List<KeyValuePair<string, coordinate>> getAllSimpul()
+        {
+            return this.simpul;
+        }
+
+        public coordinate getCoordinate(string s)
+        {
+            coordinate result = new coordinate();
+            foreach(var a in this.simpul)
+            {
+                if(Equals(a.Key, s))
+                {
+                    result = a.Value;
+                    return result;
+                }
+            }
+            return null;
+        }
+
+        public string getNamaCoordinate(coordinate c)
+        {
+            string result = "";
+            foreach (var a in this.simpul)
+            {
+                if (Equals(a.Value, c))
+                {
+                    result = a.Key;
+                    return result;
+                }
+            }
+            return null;
+        }
+
+
+    }
+
+    public class astarsearch
+    {
+        public KeyValuePair<int, coordinate> getMinfromQueue(List<KeyValuePair<int, coordinate>> queue)
+        {
+            KeyValuePair<int, coordinate> result = new KeyValuePair<int, coordinate>(99999999, new coordinate());
+            foreach(var a in queue)
+            {
+                if(a.Key < result.Key)
+                {
+                    result = a;
+                }
+            }
+            return result;
+        }
+
+        public double HeuristicDistance(coordinate a, coordinate b)
+        {
+            double result = Math.Sqrt(Math.Pow((a.getLat() - b.getLat()), 2) + Math.Pow((a.getLong() - b.getLong()), 2));
+            return result;
+        }
+
+        public void astar(string asal, string tujuan, graf g)
+        {
+            //cari koordinat dari simpul asal
+            coordinate coorAsal = g.getCoordinate(asal);
+            //cari koordinat dari
+            coordinate coorTujuan = g.getCoordinate(tujuan);
+
+            //untuk menyimpan hasil
+            List<KeyValuePair<string, coordinate>> hasil = new List<KeyValuePair<string, coordinate>>();
+
+            //untuk menyimpan nilai heuristik dan coordinat simpul
+            List<KeyValuePair<int, coordinate>> queue = new List<KeyValuePair<int, coordinate>>();
+            HashSet<coordinate> visited = new HashSet<coordinate>();
+            //HashMap<coordinate, coordinate> parent = new HashMap<coordinate, coordinate>();
+
+            int JarakNow = 0; //g(n)
+            //dicari semua simpul yang bertetangga dengan simpul asal
+            //lalu dicari nilai heuristik untuk tiap simpulnya
+            //masukin ke dalam queue
+            //dari queue dicari nilai heuristik yang paling kecil
+            //pilih simpul itu lalu keluarkan dari queue
 
 
 
+        }
     }
 }
