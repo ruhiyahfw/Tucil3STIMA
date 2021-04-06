@@ -90,9 +90,9 @@ namespace tucil3_0404
 
         private void search_Click(object sender, EventArgs e)
         {
-            //////panggil fungsi astar
-            //astarsearch as = new astarsearch();
-            //as.getPathAstar("Arad", "Bucharest", g, Global.graph);
+            //panggil fungsi astar
+            astarsearch Astar = new astarsearch();
+            Astar.getPathAstar(simpulasal, simpultujuan, Global.g, Global.graph);
         }
 
         private void daftarMap_SelectedIndexChanged(object sender, EventArgs e)

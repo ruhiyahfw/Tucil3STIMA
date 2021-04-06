@@ -51,22 +51,6 @@ namespace tucil3_0404
         public static List<string> nodes;
         public static graf g;
     }
-    static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-
-        
-
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-        }
-    }
 
     public class coordinate
     {
@@ -411,6 +395,23 @@ namespace tucil3_0404
             {
                // cetak ke layar tidak ditemukan
             }
+        }
+    }
+
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+
+
+
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }
