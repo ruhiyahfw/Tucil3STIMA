@@ -31,7 +31,7 @@ namespace tucil3_0404
             {
                 filename = "map5.txt";
             }
-            else if (Equals(input, "Peta jalan sekitar Rumah Fara"))
+            else if (Equals(input, "Peta jalan sekitar Payakumbuh"))
             {
                 filename = "map6.txt";
             }

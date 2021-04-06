@@ -90,9 +90,21 @@ namespace tucil3_0404
 
         private void search_Click(object sender, EventArgs e)
         {
+            // inisialissi MSAGL
+            foreach (string node in Global.nodes)
+            {
+                Global.graph.FindNode(node).Attr.Color = Microsoft.Msagl.Drawing.Color.CadetBlue;
+                Global.graph.FindNode(node).Attr.FillColor = Microsoft.Msagl.Drawing.Color.CadetBlue;
+            }
+
             //panggil fungsi astar
             astarsearch Astar = new astarsearch();
             Astar.getPathAstar(simpulasal, simpultujuan, Global.g, Global.graph);
+
+            //tampilkan hasil MSAGL sesuai hasil pencarian
+            Global.viewer.Graph = Global.graph;
+            Global.viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Controls.Add(Global.viewer);
         }
 
         private void daftarMap_SelectedIndexChanged(object sender, EventArgs e)
