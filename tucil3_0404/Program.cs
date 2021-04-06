@@ -9,6 +9,35 @@ namespace tucil3_0404
 {
     public static class Global
     {
+        public static string PilihMap(string input)
+        {
+            string filename = "";
+            if(Equals(input, "Peta jalan sekitar kampus ITB/Dago"))
+            {
+                filename = "map1.txt";
+            } else if (Equals(input, "Peta jalan sekitar Alun-alun Bandung"))
+            {
+                filename = "map2.txt";
+            }
+            else if (Equals(input, "Peta jalan sekitar Buahbatu"))
+            {
+                filename = "map3.txt";
+            }
+            else if (Equals(input, "Peta jalan sekitar kawasan Kota Padang"))
+            {
+                filename = "map4.txt";
+            }
+            else if (Equals(input, "Peta wilayah Romania"))
+            {
+                filename = "map5.txt";
+            }
+            else if (Equals(input, "Peta jalan sekitar Rumah Fara"))
+            {
+                filename = "map6.txt";
+            }
+
+            return filename;
+        }
         public static int JmlSimpul(string path)
         {
             string[] lines = System.IO.File.ReadAllLines(@path);

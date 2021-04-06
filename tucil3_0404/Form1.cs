@@ -21,26 +21,42 @@ namespace tucil3_0404
             daftarMap.Items.Add("Peta jalan sekitar kampus ITB/Dago");
             daftarMap.Items.Add("Peta jalan sekitar Alun-alun Bandung");
             daftarMap.Items.Add("Peta jalan sekitar Buahbatu");
-            daftarMap.Items.Add("Peta jalan sekitar kawasan rumah");
-            label3.Hide();
-            label4.Hide();
-            search.Hide();
-            asal.Hide();
-            tujuan.Hide();
+            daftarMap.Items.Add("Peta jalan sekitar kawasan Kota Padang");
+            daftarMap.Items.Add("Peta wilayah Romania");
+            daftarMap.Items.Add("Peta jalan sekitar Rumah Fara");
+            label3.Visible = false;
+            label4.Visible = false;
+            search.Visible = false;
+            asal.Visible = false;
+            tujuan.Visible = false;
+            groupBox2.Visible = false;
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label3.Show();
-            label4.Show();
-            search.Show();
-            asal.Show();
-            tujuan.Show();
-            //masukin isi combobox dari asal dan tujuan
+            //tampilkan box untuk input simpul asal dan tujuan
+            label3.Visible = true;
+            label4.Visible = true;
+            search.Visible = true;
+            asal.Visible = true;
+            tujuan.Visible = true;
+            groupBox2.Visible = true; //tempat untuk meanmpilkan jarak dari simpil asal ke simpul tujuan
+
+            //baca filename dan path nya
+            string filename = Global.PilihMap(mapterpilih);
+            string currentDir = Environment.CurrentDirectory.ToString();
+            //Console.WriteLine(currentDir);
+            DirectoryInfo d = new DirectoryInfo(currentDir);
+            string parent = System.IO.Directory.GetParent(currentDir).FullName;
+            string parentDir = System.IO.Directory.GetParent(parent).FullName;
+            //string dir = System.IO.Directory.GetParent(parentDir).FullName;
+            //Console.WriteLine(dir);
+            var path = Path.GetFullPath(Path.Combine(parentDir, @"test", filename));
+
+            //string path = "C:/Users/farad/source/repos/BuramSTIMA3/BuramSTIMA3/map5.txt";
 
             // buat graf
-            string path = "C:/Users/farad/source/repos/BuramSTIMA3/BuramSTIMA3/map5.txt";
             int N = Global.JmlSimpul(path);
             Global.g = new graf(N);
 
@@ -51,12 +67,22 @@ namespace tucil3_0404
 
             //baca txt dan tambahkan ke msagl
             Global.g.CreateGraf(path);
+
+            //masukin isi combobox dari asal dan tujuan
+            foreach (var simpul in Global.g.getAllSimpul())
+            {
+                asal.Items.Add(simpul.Key);
+                tujuan.Items.Add(simpul.Key);
+            }
+
             Global.g.AddMSAGL(Global.graph, Global.nodes);
             foreach (string node in Global.nodes)
             {
                 Global.graph.FindNode(node).Attr.Color = Microsoft.Msagl.Drawing.Color.CadetBlue;
                 Global.graph.FindNode(node).Attr.FillColor = Microsoft.Msagl.Drawing.Color.CadetBlue;
             }
+
+
             Global.viewer.Graph = Global.graph;
             Global.viewer.Dock = System.Windows.Forms.DockStyle.Fill;
             groupBox1.Controls.Add(Global.viewer);
@@ -81,7 +107,7 @@ namespace tucil3_0404
 
         private void tujuan_SelectedIndexChanged(object sender, EventArgs e)
         {
-            simpultujuan = asal.SelectedItem.ToString();
+            simpultujuan = tujuan.SelectedItem.ToString();
         }
     }
 }
