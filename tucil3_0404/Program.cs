@@ -303,13 +303,15 @@ namespace tucil3_0404
             
             foreach (var node in tetangga)
             {
+                // cari g(n) 
                 double realJarak = JarakNow; //realjarak itu dari root ke node n
-                coordinate coorDicari = g.getCoordinate(dicari[dicari.Count - 1]);
                 realJarak = realJarak + node.Item2; //diambil dari adj matrix
+                coordinate coorDicari = g.getCoordinate(dicari[dicari.Count - 1]);
+                //cari h(n)
                 double heuristik = HeuristicDistance(coorDicari, g.getCoordinate(node.Item1));
                 double functionheuritik = realJarak + heuristik;
-                List<string> nama = new List<string>();
-                nama = dicari;
+                // tambah list untuk queue
+                List<string> nama = new List<string>(dicari);
                 nama.Add(node.Item1);
                 (List<string>, double, double) masukkan = (nama, functionheuritik, realJarak);
                 //masukin ke dalam queue
@@ -389,6 +391,7 @@ namespace tucil3_0404
                 {
                     graph.FindNode(nama).Attr.Color = Microsoft.Msagl.Drawing.Color.Coral;
                     graph.FindNode(nama).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Coral;
+
                 }
             }
             catch (Exception)

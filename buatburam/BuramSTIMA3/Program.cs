@@ -23,13 +23,14 @@ namespace ConsoleApp1
             string parentDir = System.IO.Directory.GetParent(parent).FullName;
             string dir = System.IO.Directory.GetParent(parentDir).FullName;
             //Console.WriteLine(dir);
-            var path = Path.GetFullPath(Path.Combine(dir, @"test", "text1.txt"));
-            //string path = "C:/Users/farad/source/repos/BuramSTIMA3/BuramSTIMA3/text1.txt";
+            string path = "C:/Users/farad/source/repos/Tucil3STIMA/tucil3_0404/test/map5.txt";
             int N = JmlSimpul(path);
             Console.WriteLine(N);
             graf grafmap = new graf(N);
             grafmap.CreateGraf(path);
-            grafmap.showGraf();
+            //grafmap.showGraf();
+            astarsearch Astar = new astarsearch();
+            Astar.getPathAstar("Arad", "Bucharest", grafmap);
         }
     }
 }
