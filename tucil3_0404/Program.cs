@@ -181,6 +181,7 @@ namespace tucil3_0404
                         Edge.Attr.Color = Microsoft.Msagl.Drawing.Color.DarkBlue;
                         Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
                         Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        Edge.LabelText = Convert.ToString(this.adjmat[i, j]);
                     }
                 }
             }
@@ -321,7 +322,7 @@ namespace tucil3_0404
 
 
 
-        public List<string> astar(string asal, string tujuan, graf g)
+        public (List<string>,double jarak) astar(string asal, string tujuan, graf g)
         {
             ////cari koordinat dari simpul asal
             //coordinate coorAsal = g.getCoordinate(asal);
@@ -342,6 +343,7 @@ namespace tucil3_0404
             List<string> awal = new List<string>();
             awal.Add(asal);
             addQueue(g, awal, tetangga, queue, JarakNow);
+            (List<string>, double jarak) keluar = (awal,0);
 
 
             bool found = false;
@@ -361,6 +363,7 @@ namespace tucil3_0404
                 if(Equals(ujung, tujuan))
                 {
                     hasil = iter.Item1;
+                    keluar = (hasil, JarakNow);
                     found = true;
                 } else
                 {
@@ -378,25 +381,24 @@ namespace tucil3_0404
                 throw new Exception();
             }
 
-            return hasil;
+            return keluar;
         }
 
-        public void getPathAstar(string asal, string tujuan, graf g, Microsoft.Msagl.Drawing.Graph graph)
+        public void getPathAstar(string asal, string tujuan, graf g, Microsoft.Msagl.Drawing.Graph graph, ref string msg)
         {
-            List<string> hasil = new List<string>();
             try
             {
-                hasil = astar(asal, tujuan, g);
-                foreach (string nama in hasil)
+                (List<string>, double) hasil = astar(asal, tujuan, g);
+                foreach (string nama in hasil.Item1)
                 {
                     graph.FindNode(nama).Attr.Color = Microsoft.Msagl.Drawing.Color.Coral;
                     graph.FindNode(nama).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Coral;
-
                 }
+                msg = "Jarak yang ditempuh: "+Convert.ToString(hasil.Item2);
             }
             catch (Exception)
             {
-               // cetak ke layar tidak ditemukan
+                msg = "Tidak ditemukan jalan :(";
             }
         }
     }

@@ -98,12 +98,14 @@ namespace tucil3_0404
             }
 
             //panggil fungsi astar
+            string msg = "";
             astarsearch Astar = new astarsearch();
-            Astar.getPathAstar(simpulasal, simpultujuan, Global.g, Global.graph);
+            Astar.getPathAstar(simpulasal, simpultujuan, Global.g, Global.graph, ref msg);
 
             //tampilkan hasil MSAGL sesuai hasil pencarian
             Global.viewer.Graph = Global.graph;
             Global.viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            label5.Text = msg;
             groupBox1.Controls.Add(Global.viewer);
         }
 
