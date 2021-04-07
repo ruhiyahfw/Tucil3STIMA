@@ -5,6 +5,12 @@
 ========================
 - Program ini merupakan program untuk aplikasi desktop sederhana yang digunakan untuk menunjukkan lintasan terpendek dari 2 tempat asal dan tujuan yang dipilih. Pencarian lintasan terpendek ini menggunakan algoritma A * 
 - Map yang akan digunakan disediakan dalam bentuk txt yang terdapat di file test, berisi banyak simpul, koordinat setiap simpul beserta nama simpul, dan adjacency matrix.
+- Program ini menggunakan bahasa C#
+
+**Screenshots**
+========================
+[!Tampilan Awal](./doc/before.JPG)
+[!Contoh Tampilan Hasil](./doc/after.JPG)
 
 **Algoritma Program**
 ========================
