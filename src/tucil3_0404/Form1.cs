@@ -36,27 +36,24 @@ namespace tucil3_0404
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //hapus viewer lama (jika ada) dari groupBox1
             groupBox1.Controls.Remove(Global.viewer);
+
             //tampilkan box untuk input simpul asal dan tujuan
             label3.Visible = true;
             label4.Visible = true;
             search.Visible = true;
             asal.Visible = true;
             tujuan.Visible = true;
-            groupBox2.Visible = true; //tempat untuk meanmpilkan jarak dari simpil asal ke simpul tujuan
+            groupBox2.Visible = true;
 
             //baca filename dan path nya
             string filename = Global.PilihMap(mapterpilih);
             string currentDir = Environment.CurrentDirectory.ToString();
-            //Console.WriteLine(currentDir);
             DirectoryInfo d = new DirectoryInfo(currentDir);
             string parent = System.IO.Directory.GetParent(currentDir).FullName;
             string parentDir = System.IO.Directory.GetParent(parent).FullName;
-            //string dir = System.IO.Directory.GetParent(parentDir).FullName;
-            //Console.WriteLine(dir);
             path = Path.GetFullPath(Path.Combine(parentDir, @"test", filename));
-
-            //string path = "C:/Users/farad/source/repos/BuramSTIMA3/BuramSTIMA3/map5.txt";
 
             // buat graf
             N = Global.JmlSimpul(path);
@@ -67,10 +64,21 @@ namespace tucil3_0404
             Global.graph = new Microsoft.Msagl.Drawing.Graph("graph");
             Global.nodes = new List<string>();
 
-            //baca txt dan tambahkan ke msagl
+            //baca txt dan tambahkan ke graf dan msagl
             Global.g.CreateGraf(path);
+            Global.g.AddMSAGL(Global.graph, Global.nodes);
 
-            //masukin isi combobox dari asal dan tujuan
+            foreach (string node in Global.nodes)
+            {
+                Global.graph.FindNode(node).Attr.Color = Microsoft.Msagl.Drawing.Color.CadetBlue;
+                Global.graph.FindNode(node).Attr.FillColor = Microsoft.Msagl.Drawing.Color.CadetBlue;
+            }
+
+            Global.viewer.Graph = Global.graph;
+            Global.viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Controls.Add(Global.viewer);
+
+            //masukkan isi combobox dari asal dan tujuan
             asal.Items.Clear();
             tujuan.Items.Clear();
             foreach (var simpul in Global.g.getAllSimpul())
@@ -78,23 +86,13 @@ namespace tucil3_0404
                 asal.Items.Add(simpul.Key);
                 tujuan.Items.Add(simpul.Key);
             }
-
-            Global.g.AddMSAGL(Global.graph, Global.nodes);
-            foreach (string node in Global.nodes)
-            {
-                Global.graph.FindNode(node).Attr.Color = Microsoft.Msagl.Drawing.Color.CadetBlue;
-                Global.graph.FindNode(node).Attr.FillColor = Microsoft.Msagl.Drawing.Color.CadetBlue;
-            }
-
-
-            Global.viewer.Graph = Global.graph;
-            Global.viewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            groupBox1.Controls.Add(Global.viewer);
         }
 
         private void search_Click(object sender, EventArgs e)
         {
+            //hapus viewer lama (jika ada) dari groupBox1
             groupBox1.Controls.Remove(Global.viewer);
+
             // inisialissi MSAGL
             foreach (string node in Global.nodes)
             {
@@ -114,7 +112,7 @@ namespace tucil3_0404
             //baca txt dan tambahkan ke msagl
             Global.g.CreateGraf(path);
 
-            //panggil fungsi astar
+            //panggil fungsi astar lalu tampilkan hasil yang sesuai di layar
             string msg = "";
             (List<string>, double) hasil = (new List<string>(), 0);
             astarsearch Astar = new astarsearch();
@@ -133,9 +131,20 @@ namespace tucil3_0404
                     Global.graph.FindNode(nama).Attr.Color = Microsoft.Msagl.Drawing.Color.Coral;
                     Global.graph.FindNode(nama).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Coral;
                 }
+                // tampilkan hasil jarak tempuh di layar
                 msg = "Jarak yang ditempuh: " + Convert.ToString(hasil.Item2);
+                string filename = Global.PilihMap(mapterpilih);
+                // satuan jarak
+                if (!filename.Equals("map5.txt"))
+                {
+                    msg += " m";
+                }
+                else
+                {
+                    msg += " km";
+                }
             }
-            catch (Exception)
+            catch (Exception) // tidak ditemukan solusi
             {
                 msg = "Tidak ditemukan jalan :(";
             }

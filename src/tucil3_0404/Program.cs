@@ -92,13 +92,6 @@ namespace tucil3_0404
         private List<KeyValuePair<string, coordinate>> simpul; //asumsinama tempat/jalan pasti berbeda
         private double[,] adjmat;
 
-        //public graf()
-        //{
-        //    this.JumlahSimpul = ;
-        //    this.simpul = new List<KeyValuePair<coordinate, string>>();
-        //    this.adjmat = new double[,];
-        //}
-
         public graf(int N)
         {
             this.JumlahSimpul = N;
@@ -216,20 +209,21 @@ namespace tucil3_0404
                     string b = this.simpul[j].Key;
                     if (this.adjmat[i, j] != 0)
                     {
+                        // buat edge dari node
                         var Edge = graph.AddEdge(a, b);
+                        Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        Edge.LabelText = Convert.ToString(this.adjmat[i, j]);
+
+                        // buat warna edge yang sesuai
                         if (isPasangan(a, b, hasil) == true)
                         {
                             Edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Coral;
-                            Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
-                            Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-                            Edge.LabelText = Convert.ToString(this.adjmat[i, j]);
+                            
                         }
                         else
                         {
                             Edge.Attr.Color = Microsoft.Msagl.Drawing.Color.DarkBlue;
-                            Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
-                            Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-                            Edge.LabelText = Convert.ToString(this.adjmat[i, j]);
                         }
                     }
                 }
@@ -321,7 +315,6 @@ namespace tucil3_0404
 
     public class astarsearch
     {
-       
         public (List<string>, double, double) getMinfromQueue(List<(List<string>, double, double)> queue)
         {
             (List<string>, double, double) result = (new List<string>(), 999999999, 0);
@@ -350,8 +343,8 @@ namespace tucil3_0404
             foreach (var node in tetangga)
             {
                 // cari g(n) 
-                double realJarak = JarakNow; //realjarak itu dari root ke node n
-                realJarak = realJarak + node.Item2; //diambil dari adj matrix
+                double realJarak = JarakNow; 
+                realJarak = realJarak + node.Item2;
                 coordinate coorDicari = g.getCoordinate(dicari[dicari.Count - 1]);
                 //cari h(n)
                 double heuristik = HeuristicDistance(coorDicari, g.getCoordinate(node.Item1));
@@ -369,18 +362,15 @@ namespace tucil3_0404
 
         public (List<string>,double jarak) astar(string asal, string tujuan, graf g)
         {
-            ////cari koordinat dari simpul asal
-            //coordinate coorAsal = g.getCoordinate(asal);
-            ////cari koordinat dari simpul tujuan
-            //coordinate coorTujuan = g.getCoordinate(tujuan);
-
             //untuk menyimpan hasil
             List<string> hasil = new List<string>();
 
             //untuk menyimpan nilai heuristik dan list simpul
             List<(List<string>, double, double)> queue = new List<(List<string>, double, double)>();
 
-            double JarakNow = 0; //g(n)
+            //inisialisasi g(n)
+            double JarakNow = 0;
+
             //dicari semua simpul yang bertetangga dengan simpul asal
             List<(string,double)> tetangga = g.getTetangga(asal);
 
@@ -428,24 +418,6 @@ namespace tucil3_0404
 
             return keluar;
         }
-
-        //public void getPathAstar(string asal, string tujuan, graf g, Microsoft.Msagl.Drawing.Graph graph, ref string msg)
-        //{
-        //    try
-        //    {
-        //        (List<string>, double) hasil = astar(asal, tujuan, g);
-        //        foreach (string nama in hasil.Item1)
-        //        {
-        //            graph.FindNode(nama).Attr.Color = Microsoft.Msagl.Drawing.Color.Coral;
-        //            graph.FindNode(nama).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Coral;
-        //        }
-        //        msg = "Jarak yang ditempuh: "+Convert.ToString(hasil.Item2);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        msg = "Tidak ditemukan jalan :(";
-        //    }
-        //}
     }
 
     static class Program
