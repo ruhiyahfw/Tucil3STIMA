@@ -9,8 +9,10 @@
 
 **Screenshots**
 ========================
-[!Tampilan Awal](./doc/before.JPG)
-[!Contoh Tampilan Hasil](./doc/after.JPG)
+### Tampilan Awal
+![Tampilan Awal](./doc/before.JPG)
+### Contoh Tampilan Hasil
+![Contoh Tampilan Hasil](./doc/after.JPG)
 
 **Algoritma Program**
 ========================
